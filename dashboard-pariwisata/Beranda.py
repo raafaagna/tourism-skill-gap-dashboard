@@ -29,7 +29,6 @@ st.markdown(
     <div style="background: linear-gradient(135deg, #0e1f38 0%, #142c50 60%, #1e4a85 100%);
                 border-radius: 16px; padding: 52px 40px; margin-bottom: 24px; text-align: center;
                 box-shadow: 0 8px 32px rgba(20,44,80,0.18); border-bottom: 3px solid #ebc26c;">
-        <div style="font-size: 3rem; margin-bottom: 14px; line-height: 1;">🏝️</div>
         <h1 style="color: white; font-size: 2.1rem; margin: 0 0 10px; font-weight: 800; letter-spacing: -0.5px; font-family: 'DM Sans', sans-serif;">
             Dashboard Analisis Kesenjangan Kompetensi<br>Tenaga Kerja Pariwisata Indonesia
         </h1>
