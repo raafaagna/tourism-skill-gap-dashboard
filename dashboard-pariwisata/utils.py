@@ -449,8 +449,10 @@ def page_header(title: str, subtitle: str = "", icon: str = ""):
 
 
 def get_base64_image(image_path):
-    if os.path.exists(image_path):
-        with open(image_path, "rb") as img_file:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    abs_path = os.path.join(base_dir, image_path)
+    if os.path.exists(abs_path):
+        with open(abs_path, "rb") as img_file:
             return base64.b64encode(img_file.read()).decode("utf-8")
     return ""
 
