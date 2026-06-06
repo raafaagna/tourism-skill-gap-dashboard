@@ -65,11 +65,11 @@ st.markdown("Pilih halaman melalui menu sidebar kiri, atau klik ringkasan di baw
 
 cols = st.columns(5)
 pages = [
-    ("🧑‍💼", "Profil Tenaga Kerja", "Sebaran, proyeksi, dan kebutuhan pembinaan SDM per provinsi", "#/1_Profil_Tenaga_Kerja"),
-    ("🗂️", "Pemetaan Kompetensi", "Demand skill per subsektor & coverage pelatihan", "#/2_Pemetaan_Kompetensi"),
-    ("📉", "Analisis Kesenjangan", "Gap score per subsektor dan coverage tiap skill", "#/3_Analisis_Kesenjangan"),
-    ("🎯", "Prioritas & Rekomendasi", "Subsektor prioritas dan strategi pengembangan SDM", "#/4_Prioritas_Rekomendasi"),
-    ("🧪", "Simulator Pelatihan", "Simulasi dampak penambahan materi pelatihan baru", "#/5_Simulator_Pelatihan"),
+    ("🧑‍💼", "Profil Tenaga Kerja", "Sebaran, proyeksi, dan kebutuhan pembinaan SDM per provinsi", "#/Profil_Tenaga_Kerja"),
+    ("🗂️", "Pemetaan Kompetensi", "Demand skill per subsektor & coverage pelatihan", "#/Pemetaan_Kompetensi"),
+    ("📉", "Analisis Kesenjangan", "Gap score per subsektor dan coverage tiap skill", "#/Analisis_Kesenjangan"),
+    ("🎯", "Prioritas & Rekomendasi", "Subsektor prioritas dan strategi pengembangan SDM", "#/Prioritas_&_Rekomendasi"),
+    ("🧪", "Simulator Pelatihan", "Simulasi dampak penambahan materi pelatihan baru", "#/Simulator_Pelatihan"),
 ]
 
 for col, (icon, title, desc, _) in zip(cols, pages):
