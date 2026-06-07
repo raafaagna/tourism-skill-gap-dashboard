@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 st.set_page_config(page_title="Pemetaan Kompetensi | Dashboard Pariwisata", layout="wide", page_icon="🗂️")
 
-from utils import inject_css, render_sidebar_header, section_title, insight_box, metric_card, page_header, PRIMARY, ACCENT, BG, TEXT, GRID, SUCCESS, WARNING, DANGER, base_layout
+from utils import inject_css, render_sidebar_header, section_title, insight_box, metric_card, page_header, PRIMARY, ACCENT, BG, TEXT, GRID, SUCCESS, WARNING, DANGER, base_layout, format_num, format_float
 from data.demand_skill import get_df_demand_matrix, TOP15_SKILLS, SUBSEKTORS, get_top_skill_per_subsektor
 from data.coverage_score import get_df_coverage, COVERAGE_COLOR
 
@@ -24,7 +24,7 @@ render_sidebar_header()
 
 page_header(
     "Pemetaan Kebutuhan Kompetensi Pariwisata",
-    "Demand skill per subsektor & status coverage pelatihan Kemnaker",
+    "Demand skill per subsektor & status coverage pelatihan Kemnaker (Kementerian Ketenagakerjaan)",
     "🗂️",
 )
 
@@ -38,9 +38,9 @@ avg_cov   = df_cov["Score"].mean() * 100
 section_title("📊 Ringkasan Coverage Skill")
 c1, c2, c3, c4 = st.columns(4)
 with c1: metric_card("Total Demand Skill", str(len(df_cov)), "36 skill terstandarisasi", "📚", border_color=PRIMARY)
-with c2: metric_card("Fully Covered", str(n_full), f"{n_full/len(df_cov)*100:.0f}% dari total", "✅", border_color=SUCCESS)
-with c3: metric_card("Partially Covered", str(n_partial), f"{n_partial/len(df_cov)*100:.0f}% dari total", "⚠️", border_color=WARNING)
-with c4: metric_card("Not Covered", str(n_none), f"{n_none/len(df_cov)*100:.0f}% — perlu perhatian", "❌", border_color=DANGER)
+with c2: metric_card("Fully Covered", str(n_full), f"{format_float(n_full/len(df_cov)*100, 0)}% dari total", "✅", border_color=SUCCESS)
+with c3: metric_card("Partially Covered", str(n_partial), f"{format_float(n_partial/len(df_cov)*100, 0)}% dari total", "⚠️", border_color=WARNING)
+with c4: metric_card("Not Covered", str(n_none), f"{format_float(n_none/len(df_cov)*100, 0)}% — perlu perhatian", "❌", border_color=DANGER)
 
 
 # ── Heatmap Demand Skill per Subsektor ────────────────────────────────────
@@ -60,7 +60,7 @@ short_labels = {
     "Kawasan Pariwisata": "Kawasan Pariwisata",
     "Penyediaan Akomodasi": "Akomodasi",
     "Penyelenggara Kegiatan Hiburan & Rekreasi": "Hiburan & Rekreasi",
-    "Penyelenggaraan Acara (MICE)": "MICE",
+    "Penyelenggaraan Acara (MICE)": "MICE (Meeting, Incentive, Convention, and Exhibition)",
     "SPA": "SPA",
 }
 
@@ -69,7 +69,7 @@ x_labels = [s[:22] + "…" if len(s) > 22 else s for s in df_matrix.columns]
 y_labels = [short_labels.get(s, s) for s in df_matrix.index]
 
 # Build text annotations
-text_vals = [[f"{v:.1f}" for v in row] for row in z_values]
+text_vals = [[f"{format_float(v, 1)}" for v in row] for row in z_values]
 
 fig_heat = go.Figure(data=go.Heatmap(
     z=z_values,
@@ -112,9 +112,9 @@ fig_heat.update_layout(
 
 st.plotly_chart(fig_heat, width='stretch')
 insight_box(
-    "<b>Jasa Pramuwisata</b> paling banyak bergantung pada skill <b>Pariwisata Berkelanjutan (50.5%)</b>. "
-    "<b>SPA</b> sangat fokus pada <b>Pemanduan Wisata/teknis SPA (66.1%)</b>. "
-    "Sementara <b>Jasa Informasi</b> didominasi oleh <b>Pengembangan Paket Wisata (50%)</b>."
+    "Sebanyak <b>50,5%</b> dari subsektor <b>Jasa Pramuwisata</b> mencari tenaga kerja dengan keahlian spesifik di bidang <b>Pemanduan Wisata</b>. "
+    "Sebanyak <b>66,1%</b> dari subsektor industri <b>SPA</b> mencari tenaga kerja dengan keahlian spesifik di bidang <b>Perawatan SPA</b>. "
+    "Sebanyak <b>50,0%</b> dari subsektor <b>Jasa Informasi</b> mencari tenaga kerja dengan keahlian spesifik di bidang <b>Pengolahan Makanan</b>."
 )
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -134,7 +134,7 @@ fig_bar.add_trace(go.Bar(
         showscale=False,
         line=dict(color="rgba(0,0,0,0)", width=0)
     ),
-    text=[f"{r['Top Skill']} ({r['Bobot (%)']}%)" for _, r in df_top.iterrows()],
+    text=[f"{r['Top Skill']} ({format_float(r['Bobot (%)'], 1)}%)" for _, r in df_top.iterrows()],
     textposition="outside",
     insidetextanchor="start",
     textfont=dict(size=10, color=TEXT, family="DM Sans"),
@@ -197,9 +197,9 @@ with col_left:
     st.plotly_chart(fig_donut, width='stretch')
 
     insight_box(
-        f"Dari 36 demand skill, <b>{n_full} skill ({n_full/36*100:.0f}%) sudah fully covered</b> dalam pelatihan Kemnaker. "
-        f"<b>{n_partial} skill ({n_partial/36*100:.0f}%) baru sebagian tercakup</b>, dan "
-        f"<b>K3 ({n_none} skill) sama sekali belum ada modul pelatihannya</b> — ini merupakan gap kritis yang perlu segera ditangani."
+        f"Dari 36 demand skill, <b>{n_full} skill ({format_float(n_full/36*100, 0)}%) sudah fully covered</b> dalam pelatihan Kemnaker (Kementerian Ketenagakerjaan). "
+        f"<b>{n_partial} skill ({format_float(n_partial/36*100, 0)}%) baru sebagian tercakup</b>, dan "
+        f"<b>K3 (Kesehatan dan Keselamatan Kerja) ({n_none} skill) sama sekali belum ada modul pelatihannya</b> — ini merupakan gap kritis yang perlu segera ditangani."
     )
 
 with col_right:
