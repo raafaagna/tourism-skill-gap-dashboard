@@ -78,7 +78,7 @@ fig_gap.add_vline(
     line_color=DANGER,
     line_width=1.5,
     annotation_text="Ambang Kritis (10%)",
-    annotation_position="top right",
+    annotation_position="bottom right",
     annotation_font=dict(size=10, color=DANGER),
 )
 
@@ -102,7 +102,7 @@ fig_gap.update_layout(**layout)
 
 st.plotly_chart(fig_gap, width='stretch')
 insight_box(
-    "<b>SPA (32,38%)</b> dan <b>MICE (Meeting, Incentive, Convention, and Exhibition) (15,73%)</b> berada di atas ambang kritis 10%, menandakan kebutuhan "
+    "<b>SPA (Sanus Per Aquam) (32,38%)</b> dan <b>MICE (Meeting, Incentive, Convention, and Exhibition) (15,73%)</b> berada di atas ambang kritis 10%, menandakan kebutuhan "
     "peningkatan kurikulum pelatihan yang mendesak. <b>Jasa Transportasi Wisata (0%)</b> adalah satu-satunya "
     "subsektor yang kebutuhan skillnya sudah sepenuhnya tercakup dalam pelatihan."
 )
