@@ -403,7 +403,24 @@ def base_layout(title="", height=420):
             bordercolor=PRIMARY,
             font=dict(family="DM Sans", size=12),
         ),
+        separators=",.",
     )
+
+
+# ── Formatting Helpers ───────────────────────────────────────────────────────
+def format_num(number):
+    """Format integer with dot as thousands separator."""
+    if number is None:
+        return "0"
+    return f"{int(number):,}".replace(",", ".")
+
+def format_float(number, decimals=1):
+    """Format float with comma as decimal and dot as thousands separator."""
+    if number is None:
+        return "0"
+    formatted = f"{number:,.{decimals}f}"
+    return formatted.replace(",", "X").replace(".", ",").replace("X", ".")
+
 
 
 # ── Helper UI Components ─────────────────────────────────────────────────────
