@@ -24,7 +24,7 @@ render_sidebar_header()
 
 page_header(
     "Pemetaan Kebutuhan Kompetensi Pariwisata",
-    "Demand skill per subsektor & status coverage pelatihan Kemnaker (Kementerian Ketenagakerjaan)",
+    "Demand skill per subsektor & status coverage pelatihan Kementerian Ketenagakerjaan",
     "🗂️",
 )
 
