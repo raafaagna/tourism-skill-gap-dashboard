@@ -1,5 +1,5 @@
 """
-Halaman 5: Simulator Pelatihan (NLP-based)
+Halaman 5: Simulator Pelatihan (NLP / Natural Language Processing - based)
 Menggunakan cosine similarity dari sentence-transformers untuk mensimulasikan
 dampak penambahan materi pelatihan baru terhadap gap score setiap subsektor.
 """
@@ -10,7 +10,7 @@ import pandas as pd
 from utils import (
     inject_css, render_sidebar_header, page_header,
     section_title, insight_box, base_layout,
-    PRIMARY, ACCENT, TEXT, SUCCESS, DANGER, WARNING,
+    PRIMARY, ACCENT, TEXT, SUCCESS, DANGER, WARNING, format_num, format_float
 )
 from data.demand_skill import SUBSEKTORS
 
@@ -30,7 +30,7 @@ page_header(
 )
 
 st.markdown(
-    "Masukkan judul materi pelatihan baru. Sistem akan menggunakan **kecerdasan buatan (NLP)** "
+    "Masukkan judul materi pelatihan baru. Sistem akan menggunakan **kecerdasan buatan (NLP / Natural Language Processing)** "
     "untuk menghitung kesamaan semantik dengan setiap *demand skill*, lalu menghitung ulang "
     "gap score secara real-time."
 )
@@ -48,17 +48,17 @@ st.markdown(
             <div style="flex:1; min-width:240px;">
                 <strong style="color:#142c50; font-size:0.88rem;">A) Untuk Subsektor SPA:</strong>
                 <ul style="font-size:0.84rem; color:#475569; padding-left:16px; margin-top:4px; line-height:1.6;">
-                    <li>Anatomi Dasar dan Fisiologi Terapan</li>
-                    <li>Pelatihan Higiene, Sanitasi, dan K3 Khusus SPA</li>
-                    <li>Mixologi Bahan Alami dan Aromaterapi</li>
+                    <li>Pelatihan Dasar SPA</li>
+                    <li>Pelatihan Higiene dan Sanitasi Khusus SPA</li>
+                    <li>Pelatihan K3 (Kesehatan dan Keselamatan Kerja) Khusus SPA</li>
                 </ul>
             </div>
             <div style="flex:1; min-width:240px;">
-                <strong style="color:#142c50; font-size:0.88rem;">B) Untuk Subsektor MICE:</strong>
+                <strong style="color:#142c50; font-size:0.88rem;">B) Untuk Subsektor MICE (Meeting, Incentive, Convention, and Exhibition):</strong>
                 <ul style="font-size:0.84rem; color:#475569; padding-left:16px; margin-top:4px; line-height:1.6;">
                     <li>Manajemen Event Hybrid &amp; Teknologi Event</li>
-                    <li>Manajemen Acara Berkelanjutan</li>
-                    <li>Manajemen Risiko Masif dan Pengendalian Kerumunan</li>
+                    <li>Manajemen Meeting Hybrid</li>
+                    <li>Pelatihan Manajemen Insentif</li>
                 </ul>
             </div>
         </div>
@@ -71,7 +71,7 @@ st.markdown(
 module_input = st.text_input(
     "📚 Judul Materi Pelatihan Baru",
     placeholder="Contoh: Pelatihan SPA Dasar & Higiene",
-    help="Masukkan judul modul pelatihan. Sistem AI akan menghitung kecocokan semantiknya.",
+    help="Masukkan judul modul pelatihan. Sistem AI (Artificial Intelligence) akan menghitung kecocokan semantiknya.",
 )
 
 col_btn, _ = st.columns([1.5, 4.5])
@@ -85,7 +85,7 @@ if run:
         st.warning("⚠️ Silakan masukkan judul materi pelatihan terlebih dahulu.")
         st.stop()
 
-    with st.spinner("🤖 Model NLP sedang menganalisis kesamaan semantik..."):
+    with st.spinner("🤖 Model NLP (Natural Language Processing) sedang menganalisis kesamaan semantik..."):
         try:
             from data.nlp_simulator import simulate_nlp
             result = simulate_nlp(title)
@@ -120,7 +120,7 @@ if run:
         new_label = {1.0: "✅ Fully", 0.5: "⚠️ Partial", 0.0: "❌ Not Covered"}.get(d["final"], "-")
         rows.append({
             "Demand Skill": skill,
-            "Similarity (%)": f"{sim_pct:.1f}%",
+            "Similarity (%)": f"{format_float(sim_pct, 1)}%",
             "Level Kecocokan": level,
             "Coverage Lama": old_label,
             "Coverage Baru": new_label,
@@ -159,7 +159,7 @@ if run:
         x=subs_sorted,
         y=before_vals,
         marker_color=DANGER,
-        text=[f"{v}%" for v in before_vals],
+        text=[f"{format_float(v, 2)}%" for v in before_vals],
         textposition="outside",
         textfont=dict(size=9, family="DM Sans"),
     ))
@@ -168,7 +168,7 @@ if run:
         x=subs_sorted,
         y=after_vals,
         marker_color="#2ecc71",
-        text=[f"{v}%" for v in after_vals],
+        text=[f"{format_float(v, 2)}%" for v in after_vals],
         textposition="outside",
         textfont=dict(size=9, family="DM Sans"),
     ))
@@ -194,9 +194,9 @@ if run:
         d = round(b - a, 2)
         rows_gap.append({
             "Subsektor": sub,
-            "Gap Sebelum (%)": f"{b:.2f}%",
-            "Gap Sesudah (%)": f"{a:.2f}%",
-            "Perubahan (%)": f"−{d:.2f}%" if d > 0 else ("0.00%" if d == 0 else f"+{abs(d):.2f}%"),
+            "Gap Sebelum (%)": f"{format_float(b, 2)}%",
+            "Gap Sesudah (%)": f"{format_float(a, 2)}%",
+            "Perubahan (%)": f"−{format_float(d, 2)}%" if d > 0 else ("0,00%" if d == 0 else f"+{format_float(abs(d), 2)}%"),
             "Dampak": "✅ Berkurang" if d > 0 else ("⬜ Tidak Berubah" if d == 0 else "⚠️ Naik"),
         })
 
@@ -225,7 +225,7 @@ if run:
         insight_box(
             f"Penambahan materi pelatihan <b>\"{title}\"</b> berpotensi memberikan dampak terbesar "
             f"pada subsektor <b>{top_sub}</b>, dengan penurunan gap score sebesar "
-            f"<b style='color:{SUCCESS};'>−{top_d:.2f}%</b> "
-            f"(dari {gap_before.get(top_sub, 0):.2f}% menjadi {gap_after.get(top_sub, 0):.2f}%). "
+            f"<b style='color:{SUCCESS};'>−{format_float(top_d, 2)}%</b> "
+            f"(dari {format_float(gap_before.get(top_sub, 0), 2)}% menjadi {format_float(gap_after.get(top_sub, 0), 2)}%). "
             f"Secara keseluruhan, {len(impacted)} dari {len(SUBSEKTORS)} subsektor mengalami perbaikan."
         )
