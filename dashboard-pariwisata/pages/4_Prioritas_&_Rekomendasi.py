@@ -66,7 +66,7 @@ html_mice = """
 <div class="rekom-gap" style="color: #d97706;">15,73%</div>
 <div class="rekom-title">Kesenjangan Kompetensi</div>
 </div>
-<h3 style="margin-top: 0; margin-bottom: 16px; color: #142c50; font-size: 1.4rem;">2. Penyelenggaraan Acara (MICE)</h3>
+<h3 style="margin-top: 0; margin-bottom: 16px; color: #142c50; font-size: 1.4rem;">2. Penyelenggaraan Acara (MICE / Meeting, Incentive, Convention, and Exhibition)</h3>
 
 <div style="display: flex; gap: 16px; flex-wrap: wrap;">
 <div style="flex: 1; min-width: 300px; background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px;">
@@ -76,7 +76,7 @@ html_mice = """
 </span>
 </div>
 <ul style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 18px;">
-<li style="margin-bottom: 4px;">Modul pelatihan MICE <b>sudah tersedia</b>, namun belum optimal.</li>
+<li style="margin-bottom: 4px;">Modul pelatihan MICE (Meeting, Incentive, Convention, and Exhibition) <b>sudah tersedia</b>, namun belum optimal.</li>
 <li style="margin-bottom: 0;">Materi baru <b>"menyentuh sebagian" (parsial)</b> dari tuntutan tren industri saat ini.</li>
 </ul>
 </div>
