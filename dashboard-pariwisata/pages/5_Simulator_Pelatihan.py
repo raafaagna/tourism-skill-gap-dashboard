@@ -46,7 +46,7 @@ st.markdown(
         </p>
         <div style="display:flex; gap:24px; flex-wrap:wrap;">
             <div style="flex:1; min-width:240px;">
-                <strong style="color:#142c50; font-size:0.88rem;">A) Untuk Subsektor SPA:</strong>
+                <strong style="color:#142c50; font-size:0.88rem;">A) Untuk Subsektor SPA (Sanus Per Aquam):</strong>
                 <ul style="font-size:0.84rem; color:#475569; padding-left:16px; margin-top:4px; line-height:1.6;">
                     <li>Pelatihan Dasar SPA</li>
                     <li>Pelatihan Higiene dan Sanitasi Khusus SPA</li>
