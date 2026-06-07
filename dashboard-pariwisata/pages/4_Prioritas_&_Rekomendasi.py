@@ -22,14 +22,14 @@ Berdasarkan hasil analisis kesenjangan kompetensi yang telah dilakukan, sistem m
 
 section_title("Subsektor Prioritas", "🚨")
 
-# Card for SPA
+# Card for SPA (Sanus Per Aquam)
 html_spa = """
 <div class="rekom-card">
 <div class="rekom-header" style="margin-bottom: 8px;">
 <div class="rekom-gap">32,38%</div>
 <div class="rekom-title">Kesenjangan Kompetensi</div>
 </div>
-<h3 style="margin-top: 0; margin-bottom: 16px; color: #142c50; font-size: 1.4rem;">1. SPA</h3>
+<h3 style="margin-top: 0; margin-bottom: 16px; color: #142c50; font-size: 1.4rem;">1. SPA (Sanus Per Aquam)</h3>
 
 <div style="display: flex; gap: 16px; flex-wrap: wrap;">
 <div style="flex: 1; min-width: 300px; background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px;">
@@ -40,7 +40,7 @@ html_spa = """
 </div>
 <ul style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 18px;">
 <li style="margin-bottom: 4px;">Terdeteksi adanya <b>"kekosongan materi"</b> pada pasokan pelatihan.</li>
-<li style="margin-bottom: 0;">Beberapa <b>keterampilan teknis esensial</b> industri SPA belum memiliki modul spesifik.</li>
+<li style="margin-bottom: 0;">Beberapa <b>keterampilan teknis esensial</b> industri SPA (Sanus Per Aquam) belum memiliki modul spesifik.</li>
 </ul>
 </div>
 <div style="flex: 1; min-width: 300px; background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px;">
@@ -50,7 +50,7 @@ html_spa = """
 </span>
 </div>
 <ul style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 18px;">
-<li style="margin-bottom: 4px;">Lakukan <b>kolaborasi segera</b> dengan praktisi industri SPA.</li>
+<li style="margin-bottom: 4px;">Lakukan <b>kolaborasi segera</b> dengan praktisi industri SPA (Sanus Per Aquam).</li>
 <li style="margin-bottom: 0;">Susun <b>modul kurikulum baru</b> khusus untuk keterampilan yang belum ter-cover.</li>
 </ul>
 </div>
