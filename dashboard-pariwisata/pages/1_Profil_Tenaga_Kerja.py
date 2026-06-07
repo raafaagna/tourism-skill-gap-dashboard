@@ -251,5 +251,5 @@ with col_b:
     )
     insight_box(
         "Data binaan dihitung sebesar 8% dari total TK (Tenaga Kerja) pariwisata (IRTS / International Recommendations for Tourism Statistics) per provinsi, "
-        "sesuai dengan estimasi kebutuhan pembinaan SDM (Sumber Daya Manusia) yang ditetapkan Kemenpar (Kementerian Pariwisata)."
+        "sesuai dengan estimasi kebutuhan pembinaan SDM (Sumber Daya Manusia) yang ditetapkan Kementerian Pariwisata."
     )
