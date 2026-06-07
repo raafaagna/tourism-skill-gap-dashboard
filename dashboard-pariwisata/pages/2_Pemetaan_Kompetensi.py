@@ -61,7 +61,7 @@ short_labels = {
     "Penyediaan Akomodasi": "Akomodasi",
     "Penyelenggara Kegiatan Hiburan & Rekreasi": "Hiburan & Rekreasi",
     "Penyelenggaraan Acara (MICE)": "MICE (Meeting, Incentive, Convention, and Exhibition)",
-    "SPA": "SPA",
+    "SPA (Sanus Per Aquam)": "SPA (Sanus Per Aquam)",
 }
 
 z_values = df_matrix.values
@@ -113,7 +113,7 @@ fig_heat.update_layout(
 st.plotly_chart(fig_heat, width='stretch')
 insight_box(
     "Sebanyak <b>50,5%</b> dari subsektor <b>Jasa Pramuwisata</b> mencari tenaga kerja dengan keahlian spesifik di bidang <b>Pemanduan Wisata</b>. "
-    "Sebanyak <b>66,1%</b> dari subsektor industri <b>SPA</b> mencari tenaga kerja dengan keahlian spesifik di bidang <b>Perawatan SPA</b>. "
+    "Sebanyak <b>66,1%</b> dari subsektor industri <b>SPA (Sanus Per Aquam)</b> mencari tenaga kerja dengan keahlian spesifik di bidang <b>Perawatan SPA</b>. "
     "Sebanyak <b>50,0%</b> dari subsektor <b>Jasa Informasi</b> mencari tenaga kerja dengan keahlian spesifik di bidang <b>Pengolahan Makanan</b>."
 )
 
@@ -197,7 +197,7 @@ with col_left:
     st.plotly_chart(fig_donut, width='stretch')
 
     insight_box(
-        f"Dari 36 demand skill, <b>{n_full} skill ({format_float(n_full/36*100, 0)}%) sudah fully covered</b> dalam pelatihan Kemnaker (Kementerian Ketenagakerjaan). "
+        f"Dari 36 demand skill, <b>{n_full} skill ({format_float(n_full/36*100, 0)}%) sudah fully covered</b> dalam pelatihan Kementerian Ketenagakerjaan. "
         f"<b>{n_partial} skill ({format_float(n_partial/36*100, 0)}%) baru sebagian tercakup</b>, dan "
         f"<b>K3 (Kesehatan dan Keselamatan Kerja) ({n_none} skill) sama sekali belum ada modul pelatihannya</b> — ini merupakan gap kritis yang perlu segera ditangani."
     )
