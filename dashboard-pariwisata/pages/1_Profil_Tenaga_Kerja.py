@@ -3,7 +3,7 @@ Halaman 1: Profil Tenaga Kerja Pariwisata Indonesia
 - Map chart sebaran per provinsi
 - Proyeksi nasional 2024-2029
 - Growth rate per provinsi
-- Top 10 kebutuhan pembinaan SDM
+- Top 10 kebutuhan pembinaan SDM (Sumber Daya Manusia)
 - Ringkasan statistik
 """
 
@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 st.set_page_config(page_title="Profil Tenaga Kerja | Dashboard Pariwisata", layout="wide", page_icon="🧑‍💼")
 
-from utils import inject_css, render_sidebar_header, section_title, insight_box, metric_card, page_header, PRIMARY, ACCENT, BG, LIGHT_BG, TEXT, GRID, SEQUENTIAL, base_layout
+from utils import inject_css, render_sidebar_header, section_title, insight_box, metric_card, page_header, PRIMARY, ACCENT, BG, LIGHT_BG, TEXT, GRID, SEQUENTIAL, base_layout, format_num, format_float
 from data.tenaga_kerja import get_df_provinsi, get_df_proyeksi, get_df_growth, get_df_top10_pembinaan, SUMMARY
 
 inject_css()
@@ -24,16 +24,16 @@ render_sidebar_header()
 
 page_header(
     "Profil Tenaga Kerja Pariwisata Indonesia",
-    "Sebaran, proyeksi, dan kebutuhan pembinaan SDM pariwisata seluruh provinsi",
+    "Sebaran, proyeksi, dan kebutuhan pembinaan SDM (Sumber Daya Manusia) pariwisata seluruh provinsi",
     "🧑‍💼",
 )
 
 # ── Summary Metrics ────────────────────────────────────────────────────────
 section_title("📊 Ringkasan Nasional", "")
 c1, c2, c3, c4, c5 = st.columns(5)
-with c1: metric_card("Total TK 2024", "24,887,456", "IRTS Nasional")
-with c2: metric_card("Total TK 2029", "30,007,770", "Proyeksi 5 Tahun")
-with c3: metric_card("Growth 2024–2029", "20.57%", "CAGR Nasional", "📈")
+with c1: metric_card("Total TK (Tenaga Kerja) 2024", "24.887.456", "IRTS (International Recommendations for Tourism Statistics) Nasional")
+with c2: metric_card("Total TK (Tenaga Kerja) 2029", "30.007.770", "Proyeksi 5 Tahun")
+with c3: metric_card("Growth 2024–2029", "20,57%", "CAGR (Compound Annual Growth Rate) Nasional", "📈")
 with c4: metric_card("Total Provinsi", "38", "Seluruh Indonesia", "🗺️")
 with c5: metric_card("Subsektor", "12", "Sektor Pariwisata", "🏨")
 
@@ -84,7 +84,7 @@ if geojson_data:
         "Jumlah_TK": "sum", "Binaan_2025": "sum"
     })
     df_map["hover"] = df_map.apply(
-        lambda r: f"<b>{r['geojson_key'].title()}</b><br>TK 2025: {r['Jumlah_TK']:,}<br>Kebutuhan Binaan: {r['Binaan_2025']:,}", axis=1
+        lambda r: f"<b>{r['geojson_key'].title()}</b><br>TK 2025: {format_num(r['Jumlah_TK'])}<br>Kebutuhan Binaan: {format_num(r['Binaan_2025'])}", axis=1
     )
 
     fig_map = go.Figure(go.Choropleth(
@@ -125,7 +125,7 @@ if geojson_data:
 else:
     st.error("Gagal memuat data GeoJSON Peta Indonesia.")
 insight_box(
-    "<b>Konsentrasi TK Pariwisata</b>: Jawa Barat (5.59 juta), Jawa Timur (3.95 juta), dan Jawa Tengah (3.28 juta) "
+    "<b>Konsentrasi TK (Tenaga Kerja) Pariwisata</b>: Jawa Barat (5,59 juta), Jawa Timur (3,95 juta), dan Jawa Tengah (3,28 juta) "
     "mendominasi total TK pariwisata nasional. Provinsi di luar Pulau Jawa, terutama Papua dan Maluku, "
     "memiliki jumlah TK yang jauh lebih rendah namun potensi pertumbuhan yang tinggi."
 )
@@ -143,7 +143,7 @@ fig_proj.add_trace(go.Scatter(
     mode="lines+markers+text",
     line=dict(color=PRIMARY, width=3),
     marker=dict(color=ACCENT, size=10, line=dict(color=PRIMARY, width=2)),
-    text=[f"{v/1e6:.2f}M" for v in df_proj["Jumlah_TK"]],
+    text=[f"{format_float(v/1e6, 2)}M" for v in df_proj["Jumlah_TK"]],
     textposition="top center",
     textfont=dict(size=10, color=PRIMARY, family="Inter"),
     fill="tozeroy",
@@ -180,7 +180,7 @@ fig_gr.add_trace(go.Bar(
         colorscale=[[0, "#9bb5d0"], [0.5, "#2282d8"], [1.0, PRIMARY]],
         showscale=False,
     ),
-    text=[f"{v:.1f}%" for v in df_gr["Growth_Rate"]],
+    text=[f"{format_float(v, 1)}%" for v in df_gr["Growth_Rate"]],
     textposition="outside",
     textfont=dict(size=9),
     hovertemplate="<b>%{y}</b><br>Growth Rate: %{x:.1f}%<extra></extra>",
@@ -193,9 +193,9 @@ layout["yaxis"]["tickfont"] = dict(size=9)
 fig_gr.update_layout(**layout)
 st.plotly_chart(fig_gr, width='stretch')
 insight_box(
-    "<b>Kepulauan Riau (48.2%)</b> dan <b>NTB (45.1%)</b> mencatat proyeksi growth tertinggi, "
+    "<b>Kepulauan Riau (48,2%)</b> dan <b>NTB (45,1%)</b> mencatat proyeksi growth tertinggi, "
     "mencerminkan potensi pengembangan pariwisata yang pesat di wilayah tersebut. "
-    "Bali justru mencatat growth terendah (10.5%) karena basis TK-nya sudah besar."
+    "Bali justru mencatat growth terendah (10,5%) karena basis TK-nya sudah besar."
 )
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -204,7 +204,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 col_a, col_b = st.columns([1, 1], gap="large")
 
 with col_a:
-    section_title("🏆 Top 10 Provinsi Kebutuhan Pembinaan SDM Terbesar (2029)")
+    section_title("🏆 Top 10 Provinsi Kebutuhan Pembinaan SDM (Sumber Daya Manusia) Terbesar (2029)")
     df_top10 = get_df_top10_pembinaan()
 
     colors = [ACCENT if i >= 7 else PRIMARY for i in range(len(df_top10))]
@@ -215,21 +215,21 @@ with col_a:
         y=df_top10["Provinsi"],
         orientation="h",
         marker=dict(color=colors[::-1]),
-        text=[f"{v:,}" for v in df_top10["Jumlah_SDM"]],
+        text=[f"{format_num(v)}" for v in df_top10["Jumlah_SDM"]],
         textposition="outside",
         textfont=dict(size=10, color=TEXT),
-        hovertemplate="<b>%{y}</b><br>Kebutuhan Binaan: %{x:,} orang<extra></extra>",
+        hovertemplate="<b>%{y}</b><br>Kebutuhan Binaan: %{x:,.0f} orang<extra></extra>",
     ))
 
     layout = base_layout("", height=370)
-    layout["xaxis"]["title"] = "Jumlah SDM yang perlu dibina"
+    layout["xaxis"]["title"] = "Jumlah SDM (Sumber Daya Manusia) yang perlu dibina"
     layout["margin"] = dict(l=130, r=80, t=50, b=20)
     layout["yaxis"]["tickfont"] = dict(size=10)
     fig_top10.update_layout(**layout)
     st.plotly_chart(fig_top10, width='stretch')
     insight_box(
-        "<b>Bangka Belitung</b> dan <b>Papua Barat</b> menjadi provinsi dengan kebutuhan pembinaan SDM "
-        "tertinggi pada 2029. Kebutuhan ini dihitung sebesar <b>8% dari total TK IRTS</b> "
+        "<b>Bangka Belitung</b> dan <b>Papua Barat</b> menjadi provinsi dengan kebutuhan pembinaan SDM (Sumber Daya Manusia) "
+        "tertinggi pada 2029. Kebutuhan ini dihitung sebesar <b>8% dari total TK (Tenaga Kerja) IRTS (International Recommendations for Tourism Statistics)</b> "
         "sebagai estimasi target pembinaan tahunan."
     )
 
@@ -238,10 +238,10 @@ with col_b:
     df_show = df_prov[["Provinsi", "Jumlah_TK", "Growth_Rate", "TK_2029", "Binaan_2029"]].copy()
     df_show.columns = ["Provinsi", "TK 2025", "Growth (%)", "TK 2029 (Proj.)", "Binaan 2029"]
     df_show = df_show.sort_values("TK 2025", ascending=False).reset_index(drop=True)
-    df_show["TK 2025"] = df_show["TK 2025"].apply(lambda x: f"{x:,}")
-    df_show["Growth (%)"] = df_show["Growth (%)"].apply(lambda x: f"{x:.1f}%")
-    df_show["TK 2029 (Proj.)"] = df_show["TK 2029 (Proj.)"].apply(lambda x: f"{x:,}")
-    df_show["Binaan 2029"] = df_show["Binaan 2029"].apply(lambda x: f"{x:,}")
+    df_show["TK 2025"] = df_show["TK 2025"].apply(lambda x: format_num(x))
+    df_show["Growth (%)"] = df_show["Growth (%)"].apply(lambda x: f"{format_float(x, 1)}%")
+    df_show["TK 2029 (Proj.)"] = df_show["TK 2029 (Proj.)"].apply(lambda x: format_num(x))
+    df_show["Binaan 2029"] = df_show["Binaan 2029"].apply(lambda x: format_num(x))
 
     st.dataframe(
         df_show,
@@ -250,6 +250,6 @@ with col_b:
         hide_index=True,
     )
     insight_box(
-        "Data binaan dihitung sebesar 8% dari total TK pariwisata (IRTS) per provinsi, "
-        "sesuai dengan estimasi kebutuhan pembinaan SDM yang ditetapkan Kemenpar."
+        "Data binaan dihitung sebesar 8% dari total TK (Tenaga Kerja) pariwisata (IRTS / International Recommendations for Tourism Statistics) per provinsi, "
+        "sesuai dengan estimasi kebutuhan pembinaan SDM (Sumber Daya Manusia) yang ditetapkan Kemenpar (Kementerian Pariwisata)."
     )
