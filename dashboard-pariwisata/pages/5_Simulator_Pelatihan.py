@@ -56,8 +56,8 @@ st.markdown(
             <div style="flex:1; min-width:240px;">
                 <strong style="color:#142c50; font-size:0.88rem;">B) Untuk Subsektor MICE (Meeting, Incentive, Convention, and Exhibition):</strong>
                 <ul style="font-size:0.84rem; color:#475569; padding-left:16px; margin-top:4px; line-height:1.6;">
-                    <li>Manajemen Event Hybrid &amp; Teknologi Event</li>
-                    <li>Manajemen Meeting Hybrid</li>
+                    <li>Pelatihan Manajemen Event Hybrid &amp; Teknologi Event</li>
+                    <li>Pelatihan Manajemen Meeting Hybrid</li>
                     <li>Pelatihan Manajemen Insentif</li>
                 </ul>
             </div>
