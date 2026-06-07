@@ -6,7 +6,7 @@ Sumber: Kementerian Pariwisata Indonesia
 import pandas as pd
 import numpy as np
 
-# ── Data Tenaga Kerja 2025 (IRTS) ──────────────────────────────────────────
+# ── Data Tenaga Kerja 2025 (IRTS / International Recommendations for Tourism Statistics) ──────────────────────────────────────────
 TENAGA_KERJA_2025 = {
     "Aceh": 274701,
     "Sumatera Utara": 1299556,
@@ -59,7 +59,7 @@ PROYEKSI_NASIONAL = {
 }
 
 # ── Growth Rate per Provinsi 2024–2029 (%) ─────────────────────────────────
-# Dihitung berdasarkan CAGR estimasi per provinsi
+# Dihitung berdasarkan CAGR (Compound Annual Growth Rate) estimasi per provinsi
 GROWTH_RATE = {
     "Kepulauan Riau": 48.2,
     "NTB": 45.1,
@@ -103,7 +103,7 @@ GROWTH_RATE = {
 }
 
 # ── Top 10 Provinsi Kebutuhan Pembinaan SDM 2029 ───────────────────────────
-# KBLI Binaan = 8% dari jumlah TK IRTS
+# KBLI (Klasifikasi Baku Lapangan Usaha Indonesia) Binaan = 8% dari jumlah TK (Tenaga Kerja) IRTS (International Recommendations for Tourism Statistics)
 TOP10_PEMBINAAN_2029 = {
     "Bangka Belitung": 8240,
     "Papua Barat": 7520,
