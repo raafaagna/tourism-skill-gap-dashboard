@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 st.set_page_config(page_title="Analisis Kesenjangan | Dashboard Pariwisata", layout="wide", page_icon="📉")
 
-from utils import inject_css, render_sidebar_header, section_title, insight_box, metric_card, page_header, PRIMARY, ACCENT, TEXT, GRID, DANGER, SUCCESS, WARNING, base_layout
+from utils import inject_css, render_sidebar_header, section_title, insight_box, metric_card, page_header, PRIMARY, ACCENT, TEXT, GRID, DANGER, SUCCESS, WARNING, base_layout, format_num, format_float
 from data.coverage_score import get_df_gap, GAP_SCORE
 
 inject_css()
@@ -34,8 +34,8 @@ avg_gap = df_gap["Gap_Score"].mean()
 # ── Metrics ────────────────────────────────────────────────────────────────
 section_title("📊 Ringkasan Gap Kompetensi")
 c1, c2, c3, c4 = st.columns(4)
-with c1: metric_card("Gap Tertinggi", f"{max_gap_sub['Gap_Score']:.2f}%", max_gap_sub["Subsektor"], "🔴", border_color=DANGER)
-with c2: metric_card("Rata-rata Gap", f"{avg_gap:.2f}%", "Seluruh subsektor", "📊", border_color="#7bb4e8")
+with c1: metric_card("Gap Tertinggi", f"{format_float(max_gap_sub['Gap_Score'], 2)}%", max_gap_sub["Subsektor"], "🔴", border_color=DANGER)
+with c2: metric_card("Rata-rata Gap", f"{format_float(avg_gap, 2)}%", "Seluruh subsektor", "📊", border_color="#7bb4e8")
 with c3: metric_card("Subsektor Nol Gap", "1", "Jasa Transportasi Wisata", "✅", border_color=SUCCESS)
 with c4: metric_card("Subsektor Kritis", "2", "Gap > 10%", "⚠️", border_color=WARNING)
 
@@ -64,7 +64,7 @@ fig_gap.add_trace(go.Bar(
     y=df_sorted["Subsektor"],
     orientation="h",
     marker=dict(color=colors, line=dict(color="white", width=0.5)),
-    text=[f"{v:.2f}%" for v in df_sorted["Gap_Score"]],
+    text=[f"{format_float(v, 2)}%" for v in df_sorted["Gap_Score"]],
     textposition="outside",
     textfont=dict(size=10.5, color=TEXT, family="DM Sans"),
     hovertemplate="<b>%{y}</b><br>Gap Score: %{x:.2f}%<extra></extra>",
@@ -102,7 +102,7 @@ fig_gap.update_layout(**layout)
 
 st.plotly_chart(fig_gap, width='stretch')
 insight_box(
-    "<b>SPA (32.38%)</b> dan <b>MICE (15.73%)</b> berada di atas ambang kritis 10%, menandakan kebutuhan "
+    "<b>SPA (32,38%)</b> dan <b>MICE (Meeting, Incentive, Convention, and Exhibition) (15,73%)</b> berada di atas ambang kritis 10%, menandakan kebutuhan "
     "peningkatan kurikulum pelatihan yang mendesak. <b>Jasa Transportasi Wisata (0%)</b> adalah satu-satunya "
     "subsektor yang kebutuhan skillnya sudah sepenuhnya tercakup dalam pelatihan."
 )
@@ -118,7 +118,7 @@ df_table = df_gap.sort_values("Gap_Score", ascending=False).copy()
 df_table["Kategori"] = df_table["Gap_Score"].apply(
     lambda g: "🔴 Kritis (>10%)" if g > 10 else ("⚠️ Sedang (5–10%)" if g > 5 else ("🔵 Rendah (<5%)" if g > 0 else "✅ Tidak Ada Gap"))
 )
-df_table["Gap_Score"] = df_table["Gap_Score"].apply(lambda x: f"{x:.2f}%")
+df_table["Gap_Score"] = df_table["Gap_Score"].apply(lambda x: f"{format_float(x, 2)}%")
 df_table.columns = ["Subsektor", "Gap Score", "Kategori"]
 df_table = df_table.reset_index(drop=True)
 
