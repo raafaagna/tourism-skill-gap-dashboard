@@ -62,7 +62,7 @@ EXPANSI = {
 }
 
 
-@st.cache_resource(show_spinner="⏳ Mempersiapkan model NLP...")
+@st.cache_resource(show_spinner="⏳ Mempersiapkan model NLP (Natural Language Processing)...")
 def _build_tfidf_index():
     """
     Bangun TF-IDF matrix dari semua demand skill.
@@ -172,13 +172,12 @@ def simulate_nlp(new_module_title: str, threshold_full=0.35, threshold_partial=0
 
     for sub in SUBSEKTORS:
         weights = DEMAND_MATRIX.get(sub, [])
-        total_demand_count = sum(1 for w in weights if w > 0)
-        if total_demand_count == 0:
+        total_weight = sum(weights)
+        if total_weight == 0:
             gap_after[sub] = gap_before.get(sub, 0.0)
             continue
 
-        total_old_score = 0.0
-        total_new_score = 0.0
+        improvement = 0.0
 
         for idx, skill in enumerate(TOP15_SKILLS):
             w = weights[idx] if idx < len(weights) else 0
@@ -186,12 +185,12 @@ def simulate_nlp(new_module_title: str, threshold_full=0.35, threshold_partial=0
                 continue
             old_score = COVERAGE_SCORE.get(skill, 0.0)
             new_score = updated_coverage.get(skill, old_score)
-            total_old_score += old_score
-            total_new_score += new_score
+            
+            if new_score > old_score:
+                improvement += (w / total_weight) * (new_score - old_score) * 100
 
-        # Formula: Gap (%) = 100 - (Total_Coverage / Total_Demand * 100)
-        new_gap_pct = 100 - (total_new_score / total_demand_count * 100)
-        gap_after[sub] = round(max(0.0, new_gap_pct), 2)
+        old_gap = gap_before.get(sub, 0.0)
+        gap_after[sub] = round(max(0.0, old_gap - improvement), 2)
 
     delta = {
         sub: round(gap_before.get(sub, 0.0) - gap_after.get(sub, 0.0), 2)
