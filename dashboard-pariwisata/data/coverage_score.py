@@ -70,7 +70,7 @@ def get_df_coverage():
 # Gap = (Jumlah Demand Skill - Total Coverage) / Jumlah Demand Skill
 # dalam persen (%)
 GAP_SCORE = {
-    "SPA": 32.38,
+    "SPA (Sanus Per Aquam)": 32.38,
     "Penyelenggaraan Acara (MICE)": 15.73,
     "Jasa Informasi Pariwisata": 8.33,
     "Jasa Konsultan Pariwisata": 6.52,
