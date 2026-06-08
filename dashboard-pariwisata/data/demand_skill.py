@@ -18,7 +18,7 @@ SUBSEKTORS = [
     "Penyediaan Akomodasi",
     "Penyelenggara Kegiatan Hiburan & Rekreasi",
     "Penyelenggaraan Acara (MICE)",
-    "SPA",
+    "SPA (Sanus Per Aquam)",
 ]
 
 # Top 15 Demand Skill berdasarkan rancangan dashboard
@@ -54,7 +54,7 @@ DEMAND_MATRIX = {
     "Penyediaan Akomodasi":                      [29.1,  0.0,  0.0, 11.9,  3.8, 16.5,  3.8,  5.0,  0.0, 15.7,  1.5,  4.6,  2.3,  2.3,  3.4],
     "Penyelenggara Kegiatan Hiburan & Rekreasi": [10.4, 49.4,  1.3,  7.8,  9.1,  0.0,  2.6,  3.9,  0.0,  0.0,  3.9,  1.3,  3.9,  5.2,  1.3],
     "Penyelenggaraan Acara (MICE)":              [28.1,  0.0,  0.0,  3.1, 18.8,  3.1,  9.9,  0.5, 30.2,  0.0,  0.0,  1.6,  3.1,  0.0,  1.6],
-    "SPA":                                       [19.7,  0.0, 66.1,  4.7,  2.1,  0.0,  2.1,  0.0,  0.0,  0.0,  0.9,  0.4,  2.1,  0.4,  1.3],
+    "SPA (Sanus Per Aquam)":                     [19.7,  0.0, 66.1,  4.7,  2.1,  0.0,  2.1,  0.0,  0.0,  0.0,  0.9,  0.4,  2.1,  0.4,  1.3],
 }
 
 
@@ -76,19 +76,19 @@ def get_top_skill_per_subsektor():
 
 # ── Rekomendasi per Subsektor Prioritas ──────────────────────────────────
 REKOMENDASI = {
-    "SPA": {
+    "SPA (Sanus Per Aquam)": {
         "gap": "32.38%",
         "temuan": [
-            "Terdapat beberapa kompetensi teknis penting yang dibutuhkan industri SPA tetapi belum tercakup dalam modul pelatihan yang tersedia.",
-            "Materi pelatihan saat ini belum sepenuhnya mengakomodasi perkembangan kebutuhan kompetensi di subsektor SPA.",
+            "Terdapat beberapa kompetensi teknis penting yang dibutuhkan industri SPA (Sanus Per Aquam) tetapi belum tercakup dalam modul pelatihan yang tersedia.",
+            "Materi pelatihan saat ini belum sepenuhnya mengakomodasi perkembangan kebutuhan kompetensi di subsektor SPA (Sanus Per Aquam).",
         ],
         "dampak": [
             "Terjadi kesenjangan antara kompetensi yang dimiliki tenaga kerja dengan kompetensi yang dibutuhkan industri.",
-            "Lulusan pelatihan berpotensi belum memenuhi standar keterampilan yang diharapkan pelaku industri SPA.",
-            "Produktivitas dan kualitas layanan SPA dapat terpengaruh akibat keterbatasan kompetensi tenaga kerja.",
+            "Lulusan pelatihan berpotensi belum memenuhi standar keterampilan yang diharapkan pelaku industri SPA (Sanus Per Aquam).",
+            "Produktivitas dan kualitas layanan SPA (Sanus Per Aquam) dapat terpengaruh akibat keterbatasan kompetensi tenaga kerja.",
         ],
         "rekomendasi": [
-            "Membangun kolaborasi dengan praktisi dan pelaku industri SPA dalam penyusunan kurikulum.",
+            "Membangun kolaborasi dengan praktisi dan pelaku industri SPA (Sanus Per Aquam) dalam penyusunan kurikulum.",
             "Mengembangkan modul pelatihan baru yang berfokus pada kompetensi yang belum tercakup.",
             "Melakukan evaluasi dan pembaruan kurikulum secara berkala agar tetap selaras dengan kebutuhan industri.",
         ],
