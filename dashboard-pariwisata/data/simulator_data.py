@@ -14,7 +14,7 @@ SKILL_TO_SUBSEKTOR = {
     "Manajemen Risiko": ["Jasa Perjalanan Wisata", "Kawasan Pariwisata", "Penyediaan Akomodasi"],
     "Pelayanan Pelanggan": [
         "Daya Tarik Wisata", "Jasa Makanan dan Minuman", "Penyediaan Akomodasi",
-        "Jasa Transportasi Wisata", "SPA",
+        "Jasa Transportasi Wisata", "SPA (Sanus Per Aquam)",
     ],
     "Komunikasi": [
         "Jasa Informasi Pariwisata", "Jasa Konsultan Pariwisata", "Jasa Pramuwisata",
@@ -23,11 +23,11 @@ SKILL_TO_SUBSEKTOR = {
     "Administrasi dan Pelaporan": [
         "Jasa Konsultan Pariwisata", "Jasa Informasi Pariwisata", "Penyelenggaraan Acara (MICE)",
     ],
-    "Perawatan SPA": ["SPA"],
+    "Perawatan SPA": ["SPA (Sanus Per Aquam)"],
     "Kejuruan Lainnya": ["Daya Tarik Wisata"],
     "Kesehatan dan Keselamatan Kerja (K3)": [
         "Jasa Transportasi Wisata", "Kawasan Pariwisata", "Penyelenggara Kegiatan Hiburan & Rekreasi",
-        "SPA", "Jasa Makanan dan Minuman",
+        "SPA (Sanus Per Aquam)", "Jasa Makanan dan Minuman",
     ],
     "Pertolongan Pertama dan Penyelamatan": ["Kawasan Pariwisata", "Daya Tarik Wisata"],
     "Kerja Sama Tim dan Kepemimpinan": [
@@ -46,7 +46,7 @@ SKILL_TO_SUBSEKTOR = {
         "Penyediaan Akomodasi",
     ],
     "Manajemen Dapur": ["Jasa Makanan dan Minuman"],
-    "Higiene dan Sanitasi": ["Jasa Makanan dan Minuman", "SPA", "Penyediaan Akomodasi"],
+    "Higiene dan Sanitasi": ["Jasa Makanan dan Minuman", "SPA (Sanus Per Aquam)", "Penyediaan Akomodasi"],
     "Analisis Data": ["Jasa Konsultan Pariwisata", "Jasa Informasi Pariwisata"],
     "Pengelolaan Destinasi": ["Kawasan Pariwisata", "Daya Tarik Wisata"],
     "Manajemen Event": [
