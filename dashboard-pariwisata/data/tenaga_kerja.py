@@ -5,6 +5,7 @@ Sumber: Kementerian Pariwisata Indonesia
 
 import pandas as pd
 import numpy as np
+import streamlit as st
 
 # ── Data Tenaga Kerja 2025 (IRTS / International Recommendations for Tourism Statistics) ──────────────────────────────────────────
 TENAGA_KERJA_2025 = {
@@ -127,6 +128,7 @@ SUMMARY = {
 }
 
 
+@st.cache_data
 def get_df_provinsi():
     """Return DataFrame tenaga kerja per provinsi."""
     df = pd.DataFrame(
@@ -139,6 +141,7 @@ def get_df_provinsi():
     return df
 
 
+@st.cache_data
 def get_df_proyeksi():
     """Return DataFrame proyeksi nasional."""
     return pd.DataFrame(
@@ -146,6 +149,7 @@ def get_df_proyeksi():
     )
 
 
+@st.cache_data
 def get_df_growth():
     """Return DataFrame growth rate per provinsi, sorted descending."""
     df = pd.DataFrame(
@@ -154,6 +158,7 @@ def get_df_growth():
     return df
 
 
+@st.cache_data
 def get_df_top10_pembinaan():
     """Return DataFrame top 10 kebutuhan pembinaan SDM 2029."""
     df = pd.DataFrame(
