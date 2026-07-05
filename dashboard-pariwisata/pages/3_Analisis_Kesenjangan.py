@@ -34,10 +34,10 @@ avg_gap = df_gap["Gap_Score"].mean()
 # ── Metrics ────────────────────────────────────────────────────────────────
 section_title("📊 Ringkasan Gap Kompetensi")
 c1, c2, c3, c4 = st.columns(4)
-with c1: metric_card("Gap Tertinggi", f"{format_float(max_gap_sub['Gap_Score'], 2)}%", max_gap_sub["Subsektor"], "🔴", border_color=DANGER)
-with c2: metric_card("Rata-rata Gap", f"{format_float(avg_gap, 2)}%", "Seluruh subsektor", "📊", border_color="#7bb4e8")
-with c3: metric_card("Subsektor Nol Gap", "1", "Jasa Transportasi Wisata", "✅", border_color=SUCCESS)
-with c4: metric_card("Subsektor Kritis", "2", "Gap > 10%", "⚠️", border_color=WARNING)
+with c1: metric_card("Gap Tertinggi", f"{format_float(max_gap_sub['Gap_Score'], 2)}%", max_gap_sub["Subsektor"], "🔴", border_color=DANGER, height="auto")
+with c2: metric_card("Rata-rata Gap", f"{format_float(avg_gap, 2)}%", "Seluruh subsektor", "📊", border_color="#7bb4e8", height="auto")
+with c3: metric_card("Subsektor Nol Gap", "1", "Jasa Transportasi Wisata", "✅", border_color=SUCCESS, height="auto")
+with c4: metric_card("Subsektor Kritis", "2", "Gap ≥ 15,73%", "⚠️", border_color=WARNING, height="auto")
 
 
 # ── Main Gap Chart ─────────────────────────────────────────────────────────
@@ -46,17 +46,16 @@ section_title("📉 Tingkat Kesenjangan Kompetensi Tenaga Kerja per Subsektor")
 # Sort ascending (horizontal bar)
 df_sorted = df_gap.sort_values("Gap_Score", ascending=True)
 
-def get_bar_color(gap):
-    if gap == 0:
-        return SUCCESS
-    elif gap < 5:
-        return "#4f9be0"
-    elif gap < 10:
+def get_bar_color(subsektor):
+    sub_lower = subsektor.lower()
+    if "spa" in sub_lower:
+        return DANGER
+    elif "mice" in sub_lower:
         return WARNING
     else:
-        return DANGER
+        return "#4f9be0"
 
-colors = [get_bar_color(g) for g in df_sorted["Gap_Score"]]
+colors = [get_bar_color(sub) for sub in df_sorted["Subsektor"]]
 
 fig_gap = go.Figure()
 fig_gap.add_trace(go.Bar(
@@ -71,24 +70,24 @@ fig_gap.add_trace(go.Bar(
     width=0.65,
 ))
 
-# Add threshold line at 10%
+# Add threshold line at 15.73%
 fig_gap.add_vline(
-    x=10,
+    x=15.73,
     line_dash="dash",
     line_color=DANGER,
     line_width=1.5,
-    annotation_text="Ambang Kritis (10%)",
+    annotation_text="Ambang Kritis (15,73%)",
     annotation_position="bottom right",
     annotation_font=dict(size=10, color=DANGER),
 )
 
-# Add threshold line at 5%
+# Add threshold line at 8.33%
 fig_gap.add_vline(
-    x=5,
+    x=8.33,
     line_dash="dot",
     line_color=WARNING,
     line_width=1,
-    annotation_text="Waspada (5%)",
+    annotation_text="Waspada (8,33%)",
     annotation_position="bottom right",
     annotation_font=dict(size=9, color=WARNING),
 )
@@ -102,9 +101,7 @@ fig_gap.update_layout(**layout)
 
 st.plotly_chart(fig_gap, width='stretch')
 insight_box(
-    "<b>SPA (Sanus Per Aquam) (32,38%)</b> dan <b>MICE (Meeting, Incentive, Convention, and Exhibition) (15,73%)</b> berada di atas ambang kritis 10%, menandakan kebutuhan "
-    "peningkatan kurikulum pelatihan yang mendesak. <b>Jasa Transportasi Wisata (0%)</b> adalah satu-satunya "
-    "subsektor yang kebutuhan skillnya sudah sepenuhnya tercakup dalam pelatihan."
+    "Subsektor <b>SPA (Sanus Per Aquam) (32,38%)</b> berada pada tingkat kritis (merah), sedangkan <b>MICE (Meeting, Incentive, Convention, and Exhibition) (15,73%)</b> berada pada tingkat waspada (kuning), menandakan kebutuhan peningkatan kurikulum pelatihan yang mendesak pada kedua subsektor tersebut. <b>Jasa Transportasi Wisata (0%)</b> adalah satu-satunya subsektor tanpa kesenjangan, sementara subsektor lainnya tergolong rendah (biru)."
 )
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -115,9 +112,19 @@ st.markdown("<br>", unsafe_allow_html=True)
 section_title("📋 Tabel Lengkap Gap Score per Subsektor")
 
 df_table = df_gap.sort_values("Gap_Score", ascending=False).copy()
-df_table["Kategori"] = df_table["Gap_Score"].apply(
-    lambda g: "🔴 Kritis (>10%)" if g > 10 else ("⚠️ Sedang (5–10%)" if g > 5 else ("🔵 Rendah (<5%)" if g > 0 else "✅ Tidak Ada Gap"))
-)
+
+def get_kategori(subsektor, gap):
+    sub_lower = subsektor.lower()
+    if gap == 0:
+        return "✅ Tidak Ada Gap"
+    elif "spa" in sub_lower:
+        return "🔴 Kritis"
+    elif "mice" in sub_lower:
+        return "⚠️ Waspada"
+    else:
+        return "🔵 Rendah"
+
+df_table["Kategori"] = df_table.apply(lambda row: get_kategori(row["Subsektor"], row["Gap_Score"]), axis=1)
 df_table["Gap_Score"] = df_table["Gap_Score"].apply(lambda x: f"{format_float(x, 2)}%")
 df_table.columns = ["Subsektor", "Gap Score", "Kategori"]
 df_table = df_table.reset_index(drop=True)
@@ -125,7 +132,7 @@ df_table = df_table.reset_index(drop=True)
 def highlight_gap(row):
     if "Kritis" in row["Kategori"]:
         return ["background-color: #fdf0ee"] * len(row)
-    elif "Sedang" in row["Kategori"]:
+    elif "Waspada" in row["Kategori"]:
         return ["background-color: #fef9ec"] * len(row)
     elif "Tidak Ada" in row["Kategori"]:
         return ["background-color: #e8f8f0"] * len(row)
