@@ -139,7 +139,10 @@ def inject_css():
             border: 1px solid #dde4ed;
             box-shadow: 0 1px 4px rgba(20,44,80,0.04);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            height: 100%;
+            height: 190px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }}
         .metric-card:hover {{
             box-shadow: 0 6px 20px rgba(20,44,80,0.08);
@@ -424,10 +427,10 @@ def format_float(number, decimals=1):
 
 
 # ── Helper UI Components ─────────────────────────────────────────────────────
-def metric_card(label: str, value: str, sub: str = "", icon: str = "", border_color: str = "#e2e8f0"):
+def metric_card(label: str, value: str, sub: str = "", icon: str = "", border_color: str = "#e2e8f0", height: str = "190px"):
     st.markdown(
         f"""
-        <div class="metric-card" style="border-top: 3px solid {border_color};">
+        <div class="metric-card" style="border-top: 3px solid {border_color}; height: {height};">
             <div class="metric-label">{label}</div>
             <div class="metric-value">{icon} {value}</div>
             {"<div class='metric-sub'>"+sub+"</div>" if sub else ""}
@@ -460,6 +463,7 @@ def page_header(title: str, subtitle: str = "", icon: str = ""):
             <h1>{title}</h1>
             {"<p>"+subtitle+"</p>" if subtitle else ""}
         </div>
+        <img src="dummy" onerror="try {{ window.parent.document.querySelector('.main').scrollTo(0,0); }} catch(e) {{}} try {{ window.parent.scrollTo(0,0); }} catch(e) {{}}" style="display:none;">
         """,
         unsafe_allow_html=True,
     )
