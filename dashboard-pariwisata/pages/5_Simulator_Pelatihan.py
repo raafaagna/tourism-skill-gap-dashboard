@@ -24,7 +24,7 @@ inject_css()
 render_sidebar_header()
 
 page_header(
-    title="Simulator Pelatihan",
+    title="Simulator Penambahan Materi Pelatihan",
     subtitle="Simulasi dampak penambahan materi pelatihan baru terhadap kesenjangan kompetensi (gap score)",
     icon="🧪",
 )
