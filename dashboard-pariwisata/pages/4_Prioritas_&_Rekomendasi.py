@@ -11,7 +11,7 @@ inject_css()
 render_sidebar_header()
 
 page_header(
-    title="Prioritas & Rekomendasi", 
+    title="Subsektor Prioritas & Rekomendasi Pelatihan", 
     subtitle="Subsektor prioritas dan strategi pengembangan SDM", 
     icon="🎯"
 )
@@ -20,7 +20,7 @@ st.markdown("""
 Berdasarkan hasil analisis kesenjangan kompetensi yang telah dilakukan, sistem mengidentifikasi **2 subsektor prioritas utama** yang memerlukan intervensi dan strategi pengembangan Sumber Daya Manusia (SDM) yang tepat sasaran.
 """)
 
-section_title("Subsektor Prioritas", "🚨")
+section_title("Subsektor Prioritas dan Rekomendasi Penambahan Materi Pelatihan", "🚨")
 
 # Card for SPA (Sanus Per Aquam)
 html_spa = """
@@ -30,29 +30,48 @@ html_spa = """
 <div class="rekom-title">Kesenjangan Kompetensi</div>
 </div>
 <h3 style="margin-top: 0; margin-bottom: 16px; color: #142c50; font-size: 1.4rem;">1. SPA (Sanus Per Aquam)</h3>
+<p style="margin-top: 0; margin-bottom: 16px; color: #475569; font-size: 1rem;">Direkomendasikan untuk menambahkan materi pelatihan berikut:</p>
 
-<div style="display: flex; gap: 16px; flex-wrap: wrap;">
-<div style="flex: 1; min-width: 300px; background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px;">
-<div style="margin-bottom: 10px;">
-<span style="background: #fdf0ee; color: #c0392b; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; border: 1px solid rgba(192,57,43,0.2);">
-🔍 Temuan Sistem
-</span>
-</div>
-<ul style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 18px;">
-<li style="margin-bottom: 4px;">Terdeteksi adanya <b>"kekosongan materi"</b> pada pasokan pelatihan.</li>
-<li style="margin-bottom: 0;">Beberapa <b>keterampilan teknis esensial</b> industri SPA (Sanus Per Aquam) belum memiliki modul spesifik.</li>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #3b82f6;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">⛑️ K3</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Menyusun pelatihan K3 khusus industri SPA</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Higiene & sanitasi</li>
+<li>Penggunaan alat & produk</li>
+<li>Pencegahan infeksi</li>
+<li>Limbah</li>
+<li>P3K</li>
 </ul>
 </div>
-<div style="flex: 1; min-width: 300px; background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px;">
-<div style="margin-bottom: 10px;">
-<span style="background: #e8f8f0; color: #1a7a47; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; border: 1px solid rgba(26,122,71,0.2);">
-💡 Saran Tindakan
-</span>
 </div>
-<ul style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 18px;">
-<li style="margin-bottom: 4px;">Lakukan <b>kolaborasi segera</b> dengan praktisi industri SPA (Sanus Per Aquam).</li>
-<li style="margin-bottom: 0;">Susun <b>modul kurikulum baru</b> khusus untuk keterampilan yang belum ter-cover.</li>
+
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #10b981;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">🛡️ Manajemen Risiko</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Mengembangkan pelatihan manajemen risiko operasional SPA</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Identifikasi risiko</li>
+<li>Penanganan keluhan</li>
+<li>Risiko alat & produk</li>
+<li>SOP pelayanan</li>
 </ul>
+</div>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #f59e0b;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">💆‍♀️ Perawatan SPA</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Mengembangkan pelatihan teknis perawatan SPA</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Body treatment</li>
+<li>Facial treatment</li>
+<li>Massage</li>
+<li>Aromatherapy</li>
+<li>Consultation & assessment</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -67,29 +86,69 @@ html_mice = """
 <div class="rekom-title">Kesenjangan Kompetensi</div>
 </div>
 <h3 style="margin-top: 0; margin-bottom: 16px; color: #142c50; font-size: 1.4rem;">2. Penyelenggaraan Acara (MICE / Meeting, Incentive, Convention, and Exhibition)</h3>
+<p style="margin-top: 0; margin-bottom: 16px; color: #475569; font-size: 1rem;">Direkomendasikan untuk menambahkan materi pelatihan berikut:</p>
 
-<div style="display: flex; gap: 16px; flex-wrap: wrap;">
-<div style="flex: 1; min-width: 300px; background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px;">
-<div style="margin-bottom: 10px;">
-<span style="background: #fdf0ee; color: #c0392b; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; border: 1px solid rgba(192,57,43,0.2);">
-🔍 Temuan Sistem
-</span>
-</div>
-<ul style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 18px;">
-<li style="margin-bottom: 4px;">Modul pelatihan MICE (Meeting, Incentive, Convention, and Exhibition) <b>sudah tersedia</b>, namun belum optimal.</li>
-<li style="margin-bottom: 0;">Materi baru <b>"menyentuh sebagian" (parsial)</b> dari tuntutan tren industri saat ini.</li>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #3b82f6;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">⛑️ K3</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Menyusun pelatihan K3 yang sesuai karakteristik subsektor</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Crowd control</li>
+<li>Jalur evakuasi</li>
+<li>Audit struktur panggung & booth</li>
 </ul>
 </div>
-<div style="flex: 1; min-width: 300px; background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px;">
-<div style="margin-bottom: 10px;">
-<span style="background: #e8f8f0; color: #1a7a47; padding: 4px 10px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; border: 1px solid rgba(26,122,71,0.2);">
-💡 Saran Tindakan
-</span>
 </div>
-<ul style="color: #475569; font-size: 0.95rem; line-height: 1.5; margin: 0; padding-left: 18px;">
-<li style="margin-bottom: 4px;"><b>Tidak perlu merombak</b> kurikulum secara total.</li>
-<li style="margin-bottom: 0;">Cukup tambahkan <b>pelatihan singkat (micro-learning)</b> tentang pembaruan tren event modern.</li>
+
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #10b981;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">📅 Manajemen Event</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Mengembangkan pelatihan operasional penyelenggaraan event</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Master schedule</li>
+<li>Floor plan</li>
+<li>Koordinasi vendor</li>
 </ul>
+</div>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #f59e0b;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">🛡️ Manajemen Risiko</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Mengembangkan pelatihan mitigasi risiko penyelenggaraan</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Plan B</li>
+<li>Gangguan registrasi</li>
+<li>Listrik</li>
+<li>Cuaca</li>
+<li>Pembatalan acara</li>
+</ul>
+</div>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #8b5cf6;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">🎫 Ticketing</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Meningkatkan kompetensi pengelolaan sistem tiket digital</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Self-registration</li>
+<li>Payment gateway</li>
+<li>Analisis data tiket</li>
+</ul>
+</div>
+</div>
+
+<div style="background: #f8fafc; border: 1px solid #e1e8f0; padding: 16px; border-radius: 10px; border-left: 4px solid #ef4444;">
+<h4 style="margin: 0 0 8px 0; color: #142c50; font-size: 1.1rem;">📈 Penjualan</h4>
+<p style="margin: 0 0 8px 0; font-size: 0.95rem; color: #475569;"><b>Kebijakan:</b> Mengembangkan kompetensi pemasaran dan bidding</p>
+<div style="font-size: 0.95rem; color: #475569;"><b>Materi utama:</b>
+<ul style="margin-top: 4px; margin-bottom: 0; padding-left: 18px;">
+<li>Proposal sponsor</li>
+<li>Penjualan booth</li>
+<li>Bidding event internasional</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
