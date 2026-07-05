@@ -37,10 +37,10 @@ avg_cov   = df_cov["Score"].mean() * 100
 
 section_title("📊 Ringkasan Coverage Skill")
 c1, c2, c3, c4 = st.columns(4)
-with c1: metric_card("Total Demand Skill", str(len(df_cov)), "36 skill terstandarisasi", "📚", border_color=PRIMARY)
-with c2: metric_card("Fully Covered", str(n_full), f"{format_float(n_full/len(df_cov)*100, 0)}% dari total", "✅", border_color=SUCCESS)
-with c3: metric_card("Partially Covered", str(n_partial), f"{format_float(n_partial/len(df_cov)*100, 0)}% dari total", "⚠️", border_color=WARNING)
-with c4: metric_card("Not Covered", str(n_none), f"{format_float(n_none/len(df_cov)*100, 0)}% — perlu perhatian", "❌", border_color=DANGER)
+with c1: metric_card("Total Demand Skill", str(len(df_cov)), "36 skill terstandarisasi", "📚", border_color=PRIMARY, height="auto")
+with c2: metric_card("Fully Covered", str(n_full), f"{format_float(n_full/len(df_cov)*100, 0)}% dari total", "✅", border_color=SUCCESS, height="auto")
+with c3: metric_card("Partially Covered", str(n_partial), f"{format_float(n_partial/len(df_cov)*100, 0)}% dari total", "⚠️", border_color=WARNING, height="auto")
+with c4: metric_card("Not Covered", str(n_none), f"{format_float(n_none/len(df_cov)*100, 0)}% — perlu perhatian", "❌", border_color=DANGER, height="auto")
 
 
 # ── Heatmap Demand Skill per Subsektor ────────────────────────────────────
