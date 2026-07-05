@@ -3,7 +3,7 @@ Halaman 1: Profil Tenaga Kerja Pariwisata Indonesia
 - Map chart sebaran per provinsi
 - Proyeksi nasional 2024-2029
 - Growth rate per provinsi
-- Top 10 kebutuhan pembinaan SDM (Sumber Daya Manusia)
+- Top 10 kebutuhan pembinaan Sumber Daya Manusia (SDM)
 - Ringkasan statistik
 """
 
@@ -24,16 +24,16 @@ render_sidebar_header()
 
 page_header(
     "Profil Tenaga Kerja Pariwisata Indonesia",
-    "Sebaran, proyeksi, dan kebutuhan pembinaan SDM (Sumber Daya Manusia) pariwisata seluruh provinsi",
+    "Sebaran, proyeksi, dan kebutuhan pembinaan Sumber Daya Manusia (SDM) pariwisata seluruh provinsi",
     "🧑‍💼",
 )
 
 # ── Summary Metrics ────────────────────────────────────────────────────────
 section_title("📊 Ringkasan Nasional", "")
 c1, c2, c3, c4, c5 = st.columns(5)
-with c1: metric_card("Total TK (Tenaga Kerja) 2024", "24.887.456", "IRTS (International Recommendations for Tourism Statistics) Nasional")
-with c2: metric_card("Total TK (Tenaga Kerja) 2029", "30.007.770", "Proyeksi 5 Tahun")
-with c3: metric_card("Growth 2024–2029", "20,57%", "CAGR (Compound Annual Growth Rate) Nasional", "📈")
+with c1: metric_card("Total tenaga kerja 2024", "24.887.456", "International Recommendations for Tourism Statistics (IRTS) Nasional")
+with c2: metric_card("Proyeksi total tenaga kerja 2029", "30.007.770", "Proyeksi 5 Tahun")
+with c3: metric_card("Growth 2024–2029", "20,57%", "Compound Annual Growth Rate (CAGR) Nasional", "📈")
 with c4: metric_card("Total Provinsi", "38", "Seluruh Indonesia", "🗺️")
 with c5: metric_card("Subsektor", "12", "Sektor Pariwisata", "🏨")
 
@@ -46,15 +46,15 @@ df_prov = get_df_provinsi()
 
 @st.cache_data
 def load_geojson():
-    import urllib.request, json
-    url_geojson = "https://raw.githubusercontent.com/ans-4175/peta-indonesia-geojson/master/indonesia-prov.geojson"
+    import json
+    import os
+    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "indonesia_38_provinsi_fixed.geojson")
     try:
-        req = urllib.request.Request(url_geojson, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            data = json.loads(response.read())
+        with open(file_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
             # Override id bawaan dengan string provinsi agar mapping Plotly tidak salah
             for f in data.get('features', []):
-                f['id'] = f['properties']['Propinsi']
+                f['id'] = f['properties']['PROVINSI']
             return data
     except Exception as e:
         return None
@@ -62,19 +62,19 @@ def load_geojson():
 geojson_data = load_geojson()
 
 PROV_MAP = {
-    "Aceh": "DI. ACEH", "Sumatera Utara": "SUMATERA UTARA", "Sumatera Barat": "SUMATERA BARAT",
-    "Riau": "RIAU", "Jambi": "JAMBI", "Sumatera Selatan": "SUMATERA SELATAN",
-    "Bengkulu": "BENGKULU", "Lampung": "LAMPUNG", "Bangka Belitung": "BANGKA BELITUNG",
-    "Kepulauan Riau": "KEPULAUAN RIAU", "DKI Jakarta": "DKI JAKARTA", "Jawa Barat": "JAWA BARAT",
-    "Jawa Tengah": "JAWA TENGAH", "DI Yogyakarta": "DAERAH ISTIMEWA YOGYAKARTA", "Jawa Timur": "JAWA TIMUR",
-    "Banten": "BANTEN", "Bali": "BALI", "NTB": "NUSATENGGARA BARAT", "NTT": "NUSA TENGGARA TIMUR",
-    "Kalimantan Barat": "KALIMANTAN BARAT", "Kalimantan Tengah": "KALIMANTAN TENGAH",
-    "Kalimantan Selatan": "KALIMANTAN SELATAN", "Kalimantan Timur": "KALIMANTAN TIMUR",
-    "Kalimantan Utara": "KALIMANTAN UTARA", "Sulawesi Utara": "SULAWESI UTARA",
-    "Sulawesi Tengah": "SULAWESI TENGAH", "Sulawesi Selatan": "SULAWESI SELATAN",
-    "Sulawesi Tenggara": "SULAWESI TENGGARA", "Gorontalo": "GORONTALO", "Sulawesi Barat": "SULAWESI BARAT",
-    "Maluku": "MALUKU", "Maluku Utara": "MALUKU UTARA", "Papua Barat": "PAPUA BARAT", "Papua": "PAPUA",
-    "Papua Tengah": "PAPUA", "Papua Pegunungan": "PAPUA", "Papua Selatan": "PAPUA", "Papua Barat Daya": "PAPUA BARAT",
+    "Aceh": "Aceh", "Sumatera Utara": "Sumatera Utara", "Sumatera Barat": "Sumatera Barat",
+    "Riau": "Riau", "Jambi": "Jambi", "Sumatera Selatan": "Sumatera Selatan",
+    "Bengkulu": "Bengkulu", "Lampung": "Lampung", "Bangka Belitung": "Kepulauan Bangka Belitung",
+    "Kepulauan Riau": "Kepulauan Riau", "DKI Jakarta": "DKI Jakarta", "Jawa Barat": "Jawa Barat",
+    "Jawa Tengah": "Jawa Tengah", "DI Yogyakarta": "Daerah Istimewa Yogyakarta", "Jawa Timur": "Jawa Timur",
+    "Banten": "Banten", "Bali": "Bali", "NTB": "Nusa Tenggara Barat", "NTT": "Nusa Tenggara Timur",
+    "Kalimantan Barat": "Kalimantan Barat", "Kalimantan Tengah": "Kalimantan Tengah",
+    "Kalimantan Selatan": "Kalimantan Selatan", "Kalimantan Timur": "Kalimantan Timur",
+    "Kalimantan Utara": "Kalimantan Utara", "Sulawesi Utara": "Sulawesi Utara",
+    "Sulawesi Tengah": "Sulawesi Tengah", "Sulawesi Selatan": "Sulawesi Selatan",
+    "Sulawesi Tenggara": "Sulawesi Tenggara", "Gorontalo": "Gorontalo", "Sulawesi Barat": "Sulawesi Barat",
+    "Maluku": "Maluku", "Maluku Utara": "Maluku Utara", "Papua Barat": "Papua Barat", "Papua": "Papua",
+    "Papua Tengah": "Papua Tengah", "Papua Pegunungan": "Papua Pegunungan", "Papua Selatan": "Papua Selatan", "Papua Barat Daya": "Papua Barat Daya",
 }
 
 if geojson_data:
@@ -84,12 +84,12 @@ if geojson_data:
         "Jumlah_TK": "sum", "Binaan_2025": "sum"
     })
     df_map["hover"] = df_map.apply(
-        lambda r: f"<b>{r['geojson_key'].title()}</b><br>TK 2025: {format_num(r['Jumlah_TK'])}<br>Kebutuhan Binaan: {format_num(r['Binaan_2025'])}", axis=1
+        lambda r: f"<b>{r['geojson_key'].title()}</b><br>Tenaga Kerja 2025: {format_num(r['Jumlah_TK'])}<br>Kebutuhan Binaan: {format_num(r['Binaan_2025'])}", axis=1
     )
 
     fig_map = go.Figure(go.Choropleth(
         geojson=geojson_data,
-        featureidkey="properties.Propinsi",
+        featureidkey="properties.PROVINSI",
         locations=df_map["geojson_key"],
         z=df_map["Jumlah_TK"],
         colorscale=[
@@ -101,7 +101,7 @@ if geojson_data:
         ],
         showscale=True,
         colorbar=dict(
-            title=dict(text="Jumlah TK", font=dict(size=11, color=TEXT)),
+            title=dict(text="Jumlah Tenaga Kerja", font=dict(size=11, color=TEXT)),
             thickness=14, len=0.7, tickfont=dict(size=10),
         ),
         text=df_map["hover"],
@@ -113,21 +113,21 @@ if geojson_data:
         geo=dict(
             fitbounds="locations", 
             visible=False,
-            bgcolor="white",
+            bgcolor="#FFFFFF",
             showocean=False,
         ),
         height=550,
         margin=dict(l=0, r=0, t=10, b=0),
-        paper_bgcolor="white",
-        plot_bgcolor="white",
+        paper_bgcolor="#FFFFFF",
+        plot_bgcolor="#FFFFFF",
     )
     st.plotly_chart(fig_map, width='stretch')
 else:
     st.error("Gagal memuat data GeoJSON Peta Indonesia.")
 insight_box(
-    "<b>Konsentrasi TK (Tenaga Kerja) Pariwisata</b>: Jawa Barat (5,59 juta), Jawa Timur (3,95 juta), dan Jawa Tengah (3,28 juta) "
-    "mendominasi total TK pariwisata nasional. Provinsi di luar Pulau Jawa, terutama Papua dan Maluku, "
-    "memiliki jumlah TK yang jauh lebih rendah namun potensi pertumbuhan yang tinggi."
+    "<b>Konsentrasi Tenaga Kerja Pariwisata</b>: Jawa Barat (5,59 juta), Jawa Timur (3,95 juta), dan Jawa Tengah (3,28 juta) "
+    "mendominasi total tenaga kerja pariwisata nasional. Provinsi di luar Pulau Jawa, terutama Papua dan Maluku, "
+    "memiliki jumlah tenaga kerja yang jauh lebih rendah namun potensi pertumbuhan yang tinggi."
 )
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -148,7 +148,7 @@ fig_proj.add_trace(go.Scatter(
     textfont=dict(size=10, color=PRIMARY, family="Inter"),
     fill="tozeroy",
     fillcolor=f"rgba(20,44,80,0.07)",
-    name="TK Pariwisata",
+    name="Tenaga Kerja Pariwisata",
     hovertemplate="<b>%{x}</b><br>%{y:,.0f} tenaga kerja<extra></extra>",
 ))
 
@@ -195,7 +195,7 @@ st.plotly_chart(fig_gr, width='stretch')
 insight_box(
     "<b>Kepulauan Riau (48,2%)</b> dan <b>NTB (45,1%)</b> mencatat proyeksi growth tertinggi, "
     "mencerminkan potensi pengembangan pariwisata yang pesat di wilayah tersebut. "
-    "Bali justru mencatat growth terendah (10,5%) karena basis TK-nya sudah besar."
+    "Bali justru mencatat growth terendah (10,5%) karena basis tenaga kerjanya sudah besar."
 )
 
 st.markdown("<br>", unsafe_allow_html=True)
@@ -204,7 +204,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 col_a, col_b = st.columns([1, 1], gap="large")
 
 with col_a:
-    section_title("🏆 Top 10 Provinsi Kebutuhan Pembinaan SDM (Sumber Daya Manusia) Terbesar (2029)")
+    section_title("🏆 Top 10 Provinsi Kebutuhan Pembinaan Sumber Daya Manusia (SDM) Terbesar (2029)")
     df_top10 = get_df_top10_pembinaan()
 
     colors = [ACCENT if i >= 7 else PRIMARY for i in range(len(df_top10))]
@@ -222,25 +222,25 @@ with col_a:
     ))
 
     layout = base_layout("", height=370)
-    layout["xaxis"]["title"] = "Jumlah SDM (Sumber Daya Manusia) yang perlu dibina"
+    layout["xaxis"]["title"] = "Jumlah Sumber Daya Manusia (SDM) yang perlu dibina"
     layout["margin"] = dict(l=130, r=80, t=50, b=20)
     layout["yaxis"]["tickfont"] = dict(size=10)
     fig_top10.update_layout(**layout)
     st.plotly_chart(fig_top10, width='stretch')
     insight_box(
-        "<b>Bangka Belitung</b> dan <b>Papua Barat</b> menjadi provinsi dengan kebutuhan pembinaan SDM (Sumber Daya Manusia) "
-        "tertinggi pada 2029. Kebutuhan ini dihitung sebesar <b>8% dari total TK (Tenaga Kerja) IRTS (International Recommendations for Tourism Statistics)</b> "
+        "<b>Bangka Belitung</b> dan <b>Papua Barat</b> menjadi provinsi dengan kebutuhan pembinaan Sumber Daya Manusia (SDM) "
+        "tertinggi pada 2029. Kebutuhan ini dihitung sebesar <b>8% dari total tenaga kerja International Recommendations for Tourism Statistics (IRTS)</b> "
         "sebagai estimasi target pembinaan tahunan."
     )
 
 with col_b:
     section_title("📋 Tabel Ringkasan Tenaga Kerja per Provinsi")
     df_show = df_prov[["Provinsi", "Jumlah_TK", "Growth_Rate", "TK_2029", "Binaan_2029"]].copy()
-    df_show.columns = ["Provinsi", "TK 2025", "Growth (%)", "TK 2029 (Proj.)", "Binaan 2029"]
-    df_show = df_show.sort_values("TK 2025", ascending=False).reset_index(drop=True)
-    df_show["TK 2025"] = df_show["TK 2025"].apply(lambda x: format_num(x))
+    df_show.columns = ["Provinsi", "Tenaga Kerja 2025", "Growth (%)", "Tenaga Kerja 2029 (Proj.)", "Binaan 2029"]
+    df_show = df_show.sort_values("Tenaga Kerja 2025", ascending=False).reset_index(drop=True)
+    df_show["Tenaga Kerja 2025"] = df_show["Tenaga Kerja 2025"].apply(lambda x: format_num(x))
     df_show["Growth (%)"] = df_show["Growth (%)"].apply(lambda x: f"{format_float(x, 1)}%")
-    df_show["TK 2029 (Proj.)"] = df_show["TK 2029 (Proj.)"].apply(lambda x: format_num(x))
+    df_show["Tenaga Kerja 2029 (Proj.)"] = df_show["Tenaga Kerja 2029 (Proj.)"].apply(lambda x: format_num(x))
     df_show["Binaan 2029"] = df_show["Binaan 2029"].apply(lambda x: format_num(x))
 
     st.dataframe(
@@ -250,6 +250,6 @@ with col_b:
         hide_index=True,
     )
     insight_box(
-        "Data binaan dihitung sebesar 8% dari total TK (Tenaga Kerja) pariwisata (IRTS / International Recommendations for Tourism Statistics) per provinsi, "
-        "sesuai dengan estimasi kebutuhan pembinaan SDM (Sumber Daya Manusia) yang ditetapkan Kementerian Pariwisata."
+        "Data binaan dihitung sebesar 8% dari total tenaga kerja pariwisata (International Recommendations for Tourism Statistics / IRTS) per provinsi, "
+        "sesuai dengan estimasi kebutuhan pembinaan Sumber Daya Manusia (SDM) yang ditetapkan Kementerian Pariwisata."
     )
