@@ -164,19 +164,11 @@ with col_left:
     fig_donut = go.Figure(data=[go.Pie(
         labels=labels,
         values=values,
-        hole=0.6,
         marker=dict(colors=colors_donut, line=dict(color="white", width=2)),
         textinfo="label+percent",
         textfont=dict(size=11, family="Inter", color="white"),
         hovertemplate="<b>%{label}</b><br>%{value} skill (%{percent})<extra></extra>",
     )])
-
-    fig_donut.add_annotation(
-        text=f"<span style='font-size:28px; font-weight:800; color:{PRIMARY}'>{avg_cov:.0f}%</span><br><span style='font-size:12px; color:#64748b'>Rata-rata<br>Coverage</span>",
-        x=0.5, y=0.5,
-        showarrow=False,
-        align="center",
-    )
 
     fig_donut.update_layout(
         height=420,
