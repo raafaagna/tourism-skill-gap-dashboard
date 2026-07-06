@@ -12,7 +12,8 @@ from utils import (
     section_title, insight_box, base_layout,
     PRIMARY, ACCENT, TEXT, SUCCESS, DANGER, WARNING, format_num, format_float
 )
-from data.demand_skill import SUBSEKTORS
+from data.gap_score import get_all_subsektors
+SUBSEKTORS = get_all_subsektors()
 
 st.set_page_config(
     page_title="Simulator Pelatihan | Dashboard Pariwisata",
@@ -48,17 +49,17 @@ st.markdown(
             <div style="flex:1; min-width:240px;">
                 <strong style="color:#142c50; font-size:0.88rem;">A) Untuk Subsektor SPA (Sanus Per Aquam):</strong>
                 <ul style="font-size:0.84rem; color:#475569; padding-left:16px; margin-top:4px; line-height:1.6;">
-                    <li>Pelatihan Dasar SPA</li>
-                    <li>Pelatihan Higiene dan Sanitasi Khusus SPA</li>
-                    <li>Pelatihan K3 (Kesehatan dan Keselamatan Kerja) Khusus SPA</li>
+                    <li>Pelatihan Body Treatment</li>
+                    <li>Pelatihan Face Treatment</li>
+                    <li>Pelatihan Pembuatan Aromaterapi</li>
                 </ul>
             </div>
             <div style="flex:1; min-width:240px;">
                 <strong style="color:#142c50; font-size:0.88rem;">B) Untuk Subsektor MICE (Meeting, Incentive, Convention, and Exhibition):</strong>
                 <ul style="font-size:0.84rem; color:#475569; padding-left:16px; margin-top:4px; line-height:1.6;">
-                    <li>Pelatihan Manajemen Event Hybrid &amp; Teknologi Event</li>
-                    <li>Pelatihan Manajemen Meeting Hybrid</li>
-                    <li>Pelatihan Manajemen Insentif</li>
+                    <li>Pelatihan Crowd Control</li>
+                    <li>Pelatihan Manajemen Operasional Event</li>
+                    <li>Pelatihan Event Scheduling</li>
                 </ul>
             </div>
         </div>
@@ -102,45 +103,46 @@ if run:
     st.success(f"✅ Simulasi selesai untuk materi: **\"{title}\"**")
 
     # ── 1. Skill yang Terdeteksi ──────────────────────────────────────────────
-    section_title("🔍 Demand Skill yang Paling Mirip dengan Materi Ini", icon="")
-
-    # Ambil top-10 skill berdasarkan similarity score tertinggi
-    top_skills = sorted(skills_detail.items(), key=lambda x: x[1]["sim"], reverse=True)[:10]
-
-    rows = []
-    for skill, d in top_skills:
-        sim_pct = d["sim"]
-        if sim_pct >= 80:
-            level = "🟢 Sangat Mirip (≥80%)"
-        elif sim_pct >= 40:
-            level = "🟡 Cukup Mirip (40–80%)"
-        else:
-            level = "⚪ Rendah (<40%)"
-        old_label = {1.0: "✅ Fully", 0.5: "⚠️ Partial", 0.0: "❌ Not Covered"}.get(d["old"], "-")
-        new_label = {1.0: "✅ Fully", 0.5: "⚠️ Partial", 0.0: "❌ Not Covered"}.get(d["final"], "-")
-        rows.append({
-            "Demand Skill": skill,
-            "Similarity (%)": f"{format_float(sim_pct, 1)}%",
-            "Level Kecocokan": level,
-            "Coverage Lama": old_label,
-            "Coverage Baru": new_label,
-            "Meningkat?": "✔️ Ya" if d["improved"] else "—",
-        })
-
-    df_skills = pd.DataFrame(rows)
-    st.dataframe(df_skills, width='stretch', hide_index=True)
+    section_title("🔍 Demand Skill yang Terpengaruh oleh Materi Ini", icon="")
 
     if improved_skills:
+        # Hanya ambil skill yang meningkat (improved_skills)
+        affected = {k: v for k, v in skills_detail.items() if k in improved_skills}
+        affected_sorted = sorted(affected.items(), key=lambda x: x[1]["sim"], reverse=True)
+
+        rows = []
+        for skill, d in affected_sorted:
+            sim_pct = d["sim"]
+            if sim_pct >= 80:
+                level = "🟢 Sangat Mirip (≥80%)"
+            elif sim_pct >= 40:
+                level = "🟡 Cukup Mirip (40–80%)"
+            else:
+                level = "⚪ Rendah (<40%)"
+            old_label = {1.0: "✅ Fully", 0.5: "⚠️ Partial", 0.0: "❌ Not Covered"}.get(d["old"], "-")
+            new_label = {1.0: "✅ Fully", 0.5: "⚠️ Partial", 0.0: "❌ Not Covered"}.get(d["final"], "-")
+            rows.append({
+                "Demand Skill": skill,
+                "Similarity (%)": f"{format_float(sim_pct, 1)}%",
+                "Level Kecocokan": level,
+                "Coverage Lama": old_label,
+                "Coverage Baru": new_label,
+                "Meningkat?": "✔️ Ya",
+            })
+
+        df_skills = pd.DataFrame(rows)
+        st.dataframe(df_skills, width='stretch', hide_index=True)
+
         st.markdown(
             f"<div style='font-size:0.88rem; color:#475569; margin-top:6px;'>"
-            f"💡 <b>{len(improved_skills)} demand skill</b> mengalami peningkatan coverage "
+            f"💡 Terdapat <b>{len(improved_skills)} demand skill</b> yang mengalami peningkatan coverage "
             f"berkat materi ini.</div>",
             unsafe_allow_html=True,
         )
     else:
         insight_box(
-            "Model tidak menemukan demand skill yang memiliki kemiripan semantik cukup tinggi "
-            "untuk meningkatkan coverage score. Gap score tidak berubah."
+            "Model tidak menemukan demand skill yang terpengaruh oleh penambahan materi ini. "
+            "Kemungkinan materi kurang relevan atau demand skill terkait sudah fully covered."
         )
 
     st.markdown("---")
