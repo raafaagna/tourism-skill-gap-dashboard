@@ -141,7 +141,9 @@ def highlight_gap(row):
 styled_table = df_table.style.apply(highlight_gap, axis=1)
 st.dataframe(styled_table, width='stretch', hide_index=True)
 
-csv = df_table.to_csv(index=False).encode('utf-8')
+csv_df = df_table.copy()
+csv_df["Kategori"] = csv_df["Kategori"].str.replace(r'^[^\w\s]+\s*', '', regex=True)
+csv = csv_df.to_csv(index=False).encode('utf-8')
 st.download_button(
     label="⬇️ Unduh Data Gap Score (CSV)",
     data=csv,
